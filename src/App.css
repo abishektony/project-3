@@ -32,6 +32,7 @@ body {
   transition: transform 0.6s ease-in-out;
   border: 5px solid;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .flashcard:hover {
@@ -42,7 +43,6 @@ body {
 .flashcard:not(:hover) {
   transition: .4s ease-in-out;
 }
-
 
 .flipped {
   transform: rotateY(180deg);
@@ -59,7 +59,6 @@ body {
   align-items: center;
   border-radius: 15px;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .card-front {
@@ -107,7 +106,7 @@ body {
   bottom: 10%;
 }
 
-.next-button {
+.move-button {
   font-size: 16px;
   background: #000000;
   color: white;
@@ -116,19 +115,76 @@ body {
   transition: 0.3s;
   border: none;
   border-radius: 15px;
-  padding: 13px 40px;
+  padding: 13px 30px;
+  margin: 10px;
   margin-top: 25px;
 }
 
-.next-button:hover {
+.move-button:hover {
   background: #615f5f;
   transform: scale(1.05);
 }
 
-.next-button:active {
+.move-button:active {
   transform: scale(0.95);
 }
 
-.next-button:focus {
+.move-button:focus {
   outline: none;
+}
+
+.user-input {
+  width: 285px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+.text-box {
+  align-items: center;
+  width: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+.text-box:disabled {
+  cursor: not-allowed;
+}
+
+.submit-button {
+  align-self: center;
+  font-size: 16px;
+  background: #000000;
+  color: white;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  border-radius: 15px;
+  padding: 13px 30px;
+  margin: 10px;
+}
+
+.submit-button:hover {
+  background: #615f5f;
+  transform: scale(1.05);
+}
+
+.submit-button:active {
+  transform: scale(0.95);
+}
+
+.submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.text {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 0px;
 }

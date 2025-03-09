@@ -51,17 +51,46 @@ const colors = {
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [userGuess, setUserGuess] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const handleCardClick = () => {
+    if (feedback === "") return;
     setFlipped(!flipped);
   };
 
+  const handleAnswer = () => {
+    if (userGuess.toLowerCase() === answer.toLowerCase()) {
+      setFeedback("Correct! ✅");
+    } else {
+      setFeedback("Incorrect ❌");
+    } 
+    setFlipped(true);
+  }
+
   const handleNextClick = () => {
+    if (currentIndex < flashcards.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      setCurrentIndex(0);
+    }
     setFlipped(false);
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * flashcards.length);
-      setCurrentIndex(randomIndex);
-    }, 600);
+    setUserGuess("");
+    setFeedback("");
+    setAnswer(flashcards[currentIndex+1].answer);
+  };
+
+  const handleBackClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else {
+      setCurrentIndex(flashcards.length - 1);
+    }
+    setFlipped(false);
+    setUserGuess("");
+    setFeedback("");
+    setAnswer(flashcards[currentIndex+1].answer);
   };
 
   const getCategoryColor = (category) => {
@@ -82,7 +111,7 @@ function App() {
       </div>
       <div className="card-wrapper">
         <div
-          className={`flashcard ${flipped ? "flipped" : ""}`} onClick={handleCardClick}
+          className={`flashcard ${flipped ? "flipped" : ""}`} onClick={handleCardClick} disabled={feedback===""}
           style={{ borderColor: getCategoryColor(flashcards[currentIndex].category) }}
         >
           <div className="card-front">
@@ -94,11 +123,28 @@ function App() {
           <div className="card-back">
             <img src={flashcards[currentIndex].image} alt="Flashcard Visual" className="card-image-reverse" />
             <p className="card-answer" style={{ backgroundColor: getCategoryColor(flashcards[currentIndex].category) }}>
-              {flashcards[currentIndex].answer}
+             {answer}
             </p>
           </div>
         </div>
-        <button className="next-button" onClick={handleNextClick}>Next</button>
+        <div className="user-input">
+          <input
+            className='text-box' 
+            type="text"
+            placeholder="Enter your guess..."
+            value={userGuess}
+            onChange={(e) => setUserGuess(e.target.value)}
+            disabled={feedback!==""}
+            style={{
+              border: feedback!=="" ? (userGuess.toLowerCase() === flashcards[currentIndex].answer.toLowerCase() ? "3px solid green" : "3px solid red") : "1px solid #ccc",
+              backgroundColor: feedback!=="" ? (userGuess.toLowerCase() === flashcards[currentIndex].answer.toLowerCase() ? "#0b2712" : "#2a0c0f") : "black"
+            }}
+          />
+          <p className='text'>{feedback}</p>
+          <button className='submit-button' onClick={handleAnswer} disabled={feedback!==""}>Submit</button>
+        </div>
+        <button className="move-button" onClick={handleBackClick}>⬅ Back</button>
+        <button className="move-button" onClick={handleNextClick}>Next ➡</button>
       </div>
     </div>
   );
