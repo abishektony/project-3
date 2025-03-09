@@ -132,7 +132,7 @@ function App() {
             className='text-box' 
             type="text"
             placeholder="Enter your guess..."
-            value={userGuess}
+            value={feedback !== "" ? userGuess+" ➡ "+feedback : userGuess}
             onChange={(e) => setUserGuess(e.target.value)}
             disabled={feedback!==""}
             style={{
@@ -140,7 +140,6 @@ function App() {
               backgroundColor: feedback!=="" ? (userGuess.toLowerCase() === flashcards[currentIndex].answer.toLowerCase() ? "#0b2712" : "#2a0c0f") : "black"
             }}
           />
-          <p className='text'>{feedback}</p>
           <button className='submit-button' onClick={handleAnswer} disabled={feedback!==""}>Submit</button>
         </div>
         <button className="move-button" onClick={handleBackClick}>⬅ Back</button>
