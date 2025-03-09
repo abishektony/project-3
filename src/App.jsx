@@ -53,7 +53,6 @@ function App() {
   const [flipped, setFlipped] = useState(false);
   const [userGuess, setUserGuess] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [answer, setAnswer] = useState("");
 
   const handleCardClick = () => {
     if (feedback === "") return;
@@ -61,7 +60,7 @@ function App() {
   };
 
   const handleAnswer = () => {
-    if (userGuess.toLowerCase() === answer.toLowerCase()) {
+    if (userGuess.toLowerCase() === flashcards[currentIndex].answer.toLowerCase()) {
       setFeedback("Correct! ✅");
     } else {
       setFeedback("Incorrect ❌");
@@ -78,7 +77,6 @@ function App() {
     setFlipped(false);
     setUserGuess("");
     setFeedback("");
-    setAnswer(flashcards[currentIndex+1].answer);
   };
 
   const handleBackClick = () => {
@@ -90,7 +88,6 @@ function App() {
     setFlipped(false);
     setUserGuess("");
     setFeedback("");
-    setAnswer(flashcards[currentIndex+1].answer);
   };
 
   const getCategoryColor = (category) => {
@@ -123,7 +120,7 @@ function App() {
           <div className="card-back">
             <img src={flashcards[currentIndex].image} alt="Flashcard Visual" className="card-image-reverse" />
             <p className="card-answer" style={{ backgroundColor: getCategoryColor(flashcards[currentIndex].category) }}>
-             {answer}
+             {flashcards[currentIndex].answer}
             </p>
           </div>
         </div>
