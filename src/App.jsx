@@ -42,12 +42,6 @@ const flashcards = [
   }
 ];
 
-const colors = {
-  Easy: "#4CAF50",
-  Medium: "#FFA500",
-  Hard: "#FF4500",
-}
-
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -69,25 +63,29 @@ function App() {
   }
 
   const handleNextClick = () => {
-    if (currentIndex < flashcards.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0);
-    }
     setFlipped(false);
-    setUserGuess("");
-    setFeedback("");
-  };
+    setTimeout(() => {
+      if (currentIndex < flashcards.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        setCurrentIndex(0);
+      }
+      setUserGuess("");
+      setFeedback("");
+    }, 560);
+  }
 
   const handleBackClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else {
-      setCurrentIndex(flashcards.length - 1);
-    }
     setFlipped(false);
-    setUserGuess("");
-    setFeedback("");
+    setTimeout(() => {
+      if (currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+      } else {
+        setCurrentIndex(flashcards.length - 1);
+      }
+      setUserGuess("");
+      setFeedback("");
+    },560)
   };
 
   const getCategoryColor = (category) => {
